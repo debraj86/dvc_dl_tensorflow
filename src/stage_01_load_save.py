@@ -42,3 +42,4 @@ if __name__ == '__main__':
         logging.info("stage 01 completed! all the data are saved in local<<<<<<")
     except Exception as e:
         logging.exception(e)    
+        raise e

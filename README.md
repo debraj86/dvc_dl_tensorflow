@@ -18,3 +18,6 @@ to see the dag \
 >dvc dag \
 create directory config and src\utils all with a single command \
 >mkdir -p config src\utils \
+command to install local dependency 
+>pip install -e .
+
