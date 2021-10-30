@@ -1,6 +1,6 @@
 #import src
 from src.utils.all_utils import read_yaml, create_directory
-from src.utils.models import get_VGG_16_models 
+from src.utils.models import get_VGG_16_model, prepare_model
 import argparse
 import pandas as pd
 import os
@@ -29,6 +29,19 @@ def prepare_base_model(config_path, params_path):
     create_directory([base_model_dir_path])
     base_model_path = os.path.join(base_model_dir_path, base_model_name)
     model = get_VGG_16_model(input_shape=params["IMAGE_SIZE"], model_path=base_model_path)
+    full_model = prepare_model(
+        model, 
+        CLASSES=params["CLASSES"],
+        freeze_all=True,
+        freeze_till=None,
+        learning_rate=params["LEARNING_RATE"]
+        )
+    update_base_model_path = os.path.join(
+        base_model_dir_path,
+        artifacts["UPDATED_BASE_MODEL_NAME"]
+    )
+    logging.info(f"{full_model.summary()}")    
+    full_model.save()
     
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
